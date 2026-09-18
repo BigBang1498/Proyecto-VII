@@ -3,6 +3,6 @@
 </template>
 
 <script setup>
-import InicioView from './views/InicioView.vue'
+import InicioView from './views/Inicio.vue'
 </script>
 
