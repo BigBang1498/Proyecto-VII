@@ -1,7 +1,8 @@
+<template>
+  <InicioView />
+</template>
+
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
+import InicioView from './views/InicioView.vue'
 </script>
 
-<template>
-  <HelloWorld />
-</template>
