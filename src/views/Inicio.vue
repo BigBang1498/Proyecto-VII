@@ -1,3 +1,4 @@
+```vue
 <template>
   <div class="home-container">
     <!-- Barra de Navegación -->
@@ -32,7 +33,7 @@
         </p>
 
         <div class="search-box">
-          <input type="text" placeholder="Busca productos, servicios o emprendedores..."/>
+          <input type="text" placeholder="Busca productos, servicios o emprendedores..." />
           <button>Buscar</button>
         </div>
       </div>
@@ -43,7 +44,7 @@
       <div class="section-heading">
         <span class="section-tag">EXPLORA LO LOCAL</span>
         <h2>¿Qué deseas encontrar hoy?</h2>
-        <p> Conoce los productos, servicios y personas que hacen especial a nuestra comunidad.</p>
+        <p>Conoce los productos, servicios y personas que hacen especial a nuestra comunidad.</p>
       </div>
 
       <div class="cards-grid">
@@ -163,27 +164,19 @@
 
       <div class="brands-grid">
         <div class="brand-card" @click="irA('emprendimiento-1')">
-          <div class="brand-logo-placeholder"></div>
+          <img src="../assets/img-marca1.png" alt="Emprendimiento 1" />
         </div>
 
         <div class="brand-card" @click="irA('emprendimiento-2')">
-          <div class="brand-logo-placeholder"></div>
+          <img src="../assets/img-marca2.png" alt="Emprendimiento 2" />
         </div>
 
         <div class="brand-card" @click="irA('emprendimiento-3')">
-          <div class="brand-logo-placeholder"></div>
+          <img src="../assets/img-marca3.png" alt="Emprendimiento 3" />
         </div>
 
         <div class="brand-card" @click="irA('emprendimiento-4')">
-          <div class="brand-logo-placeholder"></div>
-        </div>
-
-        <div class="brand-card" @click="irA('emprendimiento-5')">
-          <div class="brand-logo-placeholder"></div>
-        </div>
-
-        <div class="brand-card" @click="irA('emprendimiento-6')">
-          <div class="brand-logo-placeholder"></div>
+          <img src="../assets/img-marca4.png" alt="Emprendimiento 4" />
         </div>
       </div>
     </section>
@@ -226,6 +219,7 @@ const scrollTo = (id) => {
   }
 }
 </script>
+
 <style scoped>
 /* Estilos generales */
 .home-container {
@@ -247,7 +241,6 @@ const scrollTo = (id) => {
   --footer-text: #a7b2b0;
   --footer-link: #d1d9d7;
   --footer-muted: #8c9996;
-  --logo-background: #f8fafc;
   font-family: 'Poppins', 'Segoe UI', sans-serif;
   color: var(--text-dark);
   background-color: var(--background);
@@ -352,7 +345,7 @@ const scrollTo = (id) => {
   padding: 5rem 2rem;
   color: var(--white);
   text-align: center;
-  background-image: url('../assets/puerto-morelos.jpg');
+  background-image: url('../assets/img-hero.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -361,12 +354,7 @@ const scrollTo = (id) => {
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(17, 94, 89, 0.9),
-    rgba(15, 118, 110, 0.76),
-    rgba(13, 148, 136, 0.58)
-  );
+  background: rgba(15, 118, 110, 0.55);
 }
 
 .hero-content {
@@ -667,36 +655,33 @@ const scrollTo = (id) => {
 }
 
 .brands-grid {
-  max-width: 1000px;
+  max-width: 850px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 1rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  align-items: center;
+  justify-items: center;
 }
 
 .brand-card {
-  min-height: 145px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 0.9rem;
   cursor: pointer;
-  transition: transform 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.2s ease;
 }
 
 .brand-card:hover {
-  transform: scale(1.03);
-  border-color: var(--primary);
+  transform: scale(1.05);
 }
 
-.brand-logo-placeholder {
-  width: 82px;
-  height: 82px;
+.brand-card img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
   border-radius: 50%;
-  border: 2px dashed var(--border-hover);
-  background-color: var(--logo-background);
+  display: block;
 }
 
 /* Footer */
@@ -771,7 +756,8 @@ const scrollTo = (id) => {
   }
 
   .brands-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
   }
 }
 
@@ -823,15 +809,12 @@ const scrollTo = (id) => {
 
   .brands-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
   }
 
-  .brand-card {
-    min-height: 120px;
-  }
-
-  .brand-logo-placeholder {
-    width: 70px;
-    height: 70px;
+  .brand-card img {
+    width: 90px;
+    height: 90px;
   }
 
   .footer-content,
