@@ -1,8 +1,17 @@
 <template>
-  <InicioView />
+  <router-view />
 </template>
 
 <script setup>
-import InicioView from './views/Inicio.vue'
+  
 </script>
+
+<style>
+  /* Estilos generales */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+</style>
 
