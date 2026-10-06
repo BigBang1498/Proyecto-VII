@@ -23,8 +23,8 @@
     </div>
 
     <!-- Sección de Datos de Contacto -->
-    <section class="event-section">
-      <div class="event-content">
+    <section class="contact-section">
+      <div class="contact-content">
         <div class="event-info">
 
           <h2>Datos de Contacto</h2>
@@ -50,20 +50,45 @@
     </div>
 
     <!-- Sección de Agregar producto -->
-    <section class="event-section">
-      <div class="event-content">
+    <section class="contact-section">
+      <div class="contact-content">
+        <div class="add-content">
+          <p>Registra los productos que ofrezcas</p>
+          <button class="event-button" @click="irA('add')">
+            +Agregar producto
+          </button>
+        </div>
         <form class="event-info" enctype="multipart/form-data">
-            <label> Marca </label><br>
-            <input type="text" placeholder="El nombre de tu marca"><br>
-            <label> Agregar logotipo </label><br>
-            <input type="file" accept="image/*"><br>
-            <button class="event-button" @click="irA('save')">
-                Guardar producto
+          <label> Marca </label><br>
+          <input type="text" placeholder="El nombre de tu marca"><br>
+          <label> Agregar logotipo </label><br>
+          <input type="file" accept="image/*"><br>
+          <p>(Formato .jpg o .png)</p><br>
+          <label>Tipo de producto</label><br>
+          <input type="text" placeholder="¿Qué es tu producto?"><br>
+          <label>Categoría: </label>
+          <select>
+            <option value="">Selecciona una opción</option>
+            <option value="categoria2">Categoría 2</option>
+            <option value="categoria3">Categoría 3</option>
+          </select><br>
+          <label>Descripción del producto</label><br>
+          <textarea placeholder="Describe tu producto"></textarea><br>
+          <label>Redes sociales</label><br>
+          <input type="url" class="url" placeholder="Link"><br>
+          <input type="url" class="url" placeholder="Link"><br>
+          <label>Subir fotos</label><br>
+          <input type="file" accept="image/*"><br>
+          <button class="event-button" @click="irA('save')">
+            Guardar producto
           </button>
         </form>
       </div>
     </section>
-
+    <div class="profile-header">
+        <h2>Mis productos</h2>
+        <hr>
+    </div>
     <!-- Footer -->
     <footer class="footer">
       <div class="footer-content">
@@ -87,28 +112,7 @@
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router'
-
-const router = useRouter()
-
-const irA = (seccion) => {
-  if (seccion === 'registro') {
-    router.push('/registro')
-    return
-  }
-
-  alert(`Navegando a la sección: ${seccion}`)
-}
-
-const scrollTo = (id) => {
-  const elemento = document.getElementById(id)
-
-  if (elemento) {
-    elemento.scrollIntoView({
-      behavior: 'smooth'
-    })
-  }
-}
+  
 </script>
 
 <style scoped>
@@ -183,6 +187,29 @@ const scrollTo = (id) => {
 
 .nav-links a:hover {
   color: var(--primary);
+}
+
+.profile-header {
+  margin: 0;
+  padding: 2rem 1.5rem 1rem;
+  text-align: center;
+  color: var(--text-dark);
+}
+
+.profile-header h2 {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.5rem, 3vw, 1.9rem);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  color: var(--text-dark);
+}
+
+.profile-header hr {
+  width: 100%;
+  max-width: 500px;
+  margin: 1rem auto 0;
+  border: none;
+  border-top: 1px solid var(--text-dark);
 }
 
 .btn-emprendedor {
@@ -351,19 +378,19 @@ const scrollTo = (id) => {
   text-align: center;
 }
 
-.event-section {
-  padding: 5rem 1.5rem;
-  background-color: var(--card-gray);
+.contact-section {
+  padding: 1rem 1.5rem;
 }
 
-.event-content {
-  max-width: 1000px;
+.contact-content {
+  max-width: 500px;
   margin: 0 auto;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  gap: 3rem;
-  padding: 2.5rem;
+  gap: 1.5rem;
+  padding: 2rem;
   background-color: var(--white);
   border: 1px solid var(--border);
   border-radius: 1rem;
