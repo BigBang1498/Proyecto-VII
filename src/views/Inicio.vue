@@ -1,21 +1,5 @@
 <template>
   <div class="home-container">
-    <!-- Barra de Navegación -->
-    <header class="navbar">
-      <div class="logo">
-        <span>Hecho en</span>
-        <strong>Puerto Morelos</strong>
-      </div>
-
-      <nav class="nav-links">
-        <a href="#inicio" @click.prevent="scrollTo('inicio')">Inicio</a>
-        <a href="#directorio" @click.prevent="scrollTo('directorio')">Explorar</a>
-        <a href="#categorias" @click.prevent="scrollTo('categorias')">Categorías</a>
-        <a href="#registro" class="btn-emprendedor" @click.prevent="irA('registro')">
-          Soy emprendedor
-        </a>
-      </nav>
-    </header>
 
     <!-- Sección Banner Principal -->
     <section id="inicio" class="hero">
@@ -229,62 +213,6 @@ const scrollTo = (id) => {
 
 .home-container * {
   font-family: inherit;
-}
-
-.navbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem 5%;
-  background-color: var(--white);
-  border-bottom: 1px solid var(--border);
-}
-
-.logo {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.1;
-}
-
-.logo span {
-  color: var(--text-medium);
-  font-size: 0.72rem;
-  font-weight: 600;
-}
-
-.logo strong {
-  color: var(--primary);
-  font-size: 1rem;
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.nav-links a {
-  padding: 0.55rem 0.7rem;
-  color: var(--text-dark);
-  text-decoration: none;
-  font-size: 0.82rem;
-  font-weight: 500;
-  transition: color 0.2s ease;
-}
-
-.nav-links a:hover {
-  color: var(--primary);
-}
-
-.btn-emprendedor {
-  margin-left: 0.5rem;
-  border-radius: 0.6rem;
-  background-color: var(--primary);
-  color: var(--white) !important;
-}
-
-.btn-emprendedor:hover {
-  background-color: var(--primary-dark);
 }
 
 .hero {

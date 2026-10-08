@@ -1,24 +1,7 @@
 <template>
   <div class="home-container">
-    <!-- Barra de Navegación -->
-    <header class="navbar">
-      <div class="logo">
-        <span>Hecho en</span>
-        <strong>Puerto Morelos</strong>
-      </div>
-
-      <nav class="nav-links">
-        <a href="#inicio" @click.prevent="scrollTo('inicio')">Inicio</a>
-        <a href="#directorio" @click.prevent="scrollTo('directorio')">Explorar</a>
-        <a href="#categorias" @click.prevent="scrollTo('categorias')">Categorías</a>
-        <a href="#registro" class="btn-emprendedor" @click.prevent="irA('registro')">
-          Soy emprendedor
-        </a>
-      </nav>
-    </header>
-    
     <div class="profile-header">
-        <h2>Nombre de Usuario</h2>
+      <h1>Hola, {{ usuarioActivo.nombre }}</h1>
         <hr>
     </div>
 
@@ -112,8 +95,19 @@
 </template>
 
 <script setup>
-  import { ref } from 'vue';
-  const mostrarFormulario = ref(false);
+import { ref } from 'vue';
+
+const mostrarFormulario = ref(false);
+
+const usuarioActivo = JSON.parse(
+  localStorage.getItem('usuarioActivo')
+) || {
+  nombre: 'Emprendedor'
+};
+
+function guardarProducto() {
+  console.log('Producto guardado');
+}
 </script>
 
 <style scoped>
