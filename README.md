@@ -7,4 +7,5 @@ Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://
 
 
 #Código para instalar los social icons
+
 npm install @fortawesome/fontawesome-svg-core @fortawesome/vue-fontawesome@latest @fortawesome/free-brands-svg-icons
