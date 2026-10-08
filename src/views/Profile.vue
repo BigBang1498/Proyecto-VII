@@ -75,9 +75,13 @@
           <label>Descripción del producto</label><br>
           <textarea placeholder="Describe tu producto, agrega detalls como los materiales, colores y dimensiones"></textarea><br>
           <label>Redes sociales</label><br>
-          <input type="url" class="url" placeholder="Link"><br>
-          <input type="url" class="url" placeholder="Link"><br>
-          <label>Subir fotos</label><br>
+          <div class="social-media">
+            <div class="facebook-icon"><font-awesome-icon :icon="['fab', 'facebook']" /></div><input type="url" class="url" placeholder="Link"><br>
+          </div>
+          <div class="social-media">
+            <div class="instagram-icon"><font-awesome-icon :icon="['fab', 'instagram']" /></div><input type="url" class="url" placeholder="Link"><br>
+          </div>
+          <label>Subir fotos (max. 5 imágenes)</label><br>
           <input type="file" accept="image/*"><br>
           <button class="button" @click="">
             Guardar producto
@@ -312,7 +316,45 @@ input, textarea, select {
   outline: none;
   transition: border-color 0.2s ease, background-color 0.2s ease;
 }
+input[type="file"]::file-selector-button {
+  margin-right: 0.8rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: var(--primary);
+  color: var(--white);
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
 
+input[type="file"]::file-selector-button:hover {
+  background-color: var(--primary-dark);
+}
+
+/* Redes sociales */
+.social-media {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+} 
+.social-media .facebook-icon {
+  color: #1877F2;
+}
+.social-media .instagram-icon {
+  color: #E1306C;
+  
+}
+.social-media .instagram-icon, .facebook-icon {
+  width: 50px;
+  height: 50px;
+  font-size: 35px;
+  border-radius: 12px;
+  margin-top: 10px;
+}
 /* Footer */
 .footer {
   padding: 3rem 5% 1.5rem;
