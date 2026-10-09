@@ -138,7 +138,6 @@ function registrar() {
     return;
   }
 
-
   const nuevoEmprendedor = {
     id: Date.now(),
     nombre: form.nombre,

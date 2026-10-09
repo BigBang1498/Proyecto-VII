@@ -100,7 +100,7 @@
       JSON.stringify(emprendedor)
     );
   
-    router.push('/form-profile');
+    router.push('/profile');
   }
   </script>
   
