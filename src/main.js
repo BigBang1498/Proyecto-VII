@@ -10,6 +10,8 @@ import { faFacebook, faInstagram } from '@fortawesome/free-brands-svg-icons'
 
 //Se agregan los iconos a la librería
 library.add( faFacebook, faInstagram );
+import router from './router';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const app = createApp(App);
 
