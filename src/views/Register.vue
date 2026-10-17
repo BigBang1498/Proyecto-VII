@@ -8,23 +8,19 @@
 
     <form id="register-container" @submit.prevent="registrar">
 
-      <label>Nombre</label><br>
+      <label>Nombre *</label><br>
       <input id="name" type="text" v-model.trim="form.nombre" placeholder="Tu nombre completo">
       <small v-if="errores.nombre" class="error">{{ errores.nombre }}</small>
 
-      <label>Usuario</label><br>
-      <input id="user" type="text" v-model.trim="form.usuario" placeholder="Nombre de usuario">
-      <small v-if="errores.usuario" class="error">{{ errores.usuario }}</small>
-
-      <label>Correo electrónico</label><br>
+      <label>Correo electrónico *</label><br>
       <input type="email" id="email" v-model.trim="form.correo" placeholder="correo@ejemplo.com">
       <small v-if="errores.correo" class="error">{{ errores.correo }}</small>
 
-      <label>Contraseña</label><br>
+      <label>Contraseña *</label><br>
       <input type="password" id="password" v-model="form.password" placeholder="Mínimo 6 caracteres">
       <small v-if="errores.password" class="error">{{ errores.password }}</small>
 
-      <label>Confirmar contraseña</label><br>
+      <label>Confirmar contraseña *</label><br>
       <input type="password" id="confirm-password" v-model="form.confirmarPassword" placeholder="Repite tu contraseña">
       <small v-if="errores.confirmarPassword" class="error">{{ errores.confirmarPassword }}</small>
 
@@ -79,12 +75,6 @@ function validarFormulario() {
   // Nombre
   if (!form.nombre) {
     errores.nombre = 'El nombre es obligatorio.';
-    valido = false;
-  }
-
-  // Usuario
-  if (!form.usuario) {
-    errores.usuario = 'El usuario es obligatorio.';
     valido = false;
   }
 
@@ -156,7 +146,6 @@ function registrar() {
   mensajeExito.value = 'Usuario registrado';
 
   form.nombre = '';
-  form.usuario = '';
   form.correo = '';
   form.password = '';
   form.confirmarPassword = '';

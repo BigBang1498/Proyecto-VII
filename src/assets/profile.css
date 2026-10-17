@@ -705,6 +705,16 @@ strong.error {
   margin-top: 8px;
 }
 
+
+/* Solo amplía el contenedor de Mis productos */
+.contact-content.products-container {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
 /* Adaptación a móviles */
 @media (max-width: 520px) {
   .product-card-list {

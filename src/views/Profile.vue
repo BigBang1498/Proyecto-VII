@@ -1181,17 +1181,16 @@ function nombreCategoria(categoria) {
 
 // Cerrar sesión
 function cerrarSesion() {
-  localStorage.removeItem("usuarioActivo");
-  router.push("/login");
+  localStorage.removeItem('usuarioActivo')
+
+  // Avisar a la barra que la sesión terminó
+  window.dispatchEvent(new Event('sesion-actualizada'))
+
+  router.push('/')
 }
 </script>
 
 <style scoped>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 .home-container {
   --primary: #0d9488;
   --primary-dark: #0f766e;
@@ -1422,7 +1421,8 @@ input[type="file"]::file-selector-button:hover {
 .social-media .instagram-icon, .facebook-icon {
   width: 50px;
   height: 50px;
-  font-size: 30px;
+  font-size: 35px;
+  border-radius: 12px;
   margin-top: 10px;
 }
 /* Footer */

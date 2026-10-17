@@ -8,11 +8,11 @@
   
       <form id="login-container" @submit.prevent="iniciarSesion">
   
-        <label>Correo electrónico</label><br>
+        <label>Correo electrónico *</label><br>
         <input type="email" id="email" v-model.trim="form.correo" placeholder="correo@ejemplo.com" :class="{ 'input-error': errores.correo }">
         <small v-if="errores.correo" class="error">{{ errores.correo }}</small>
   
-        <label>Contraseña</label><br>
+        <label>Contraseña *</label><br>
         <input type="password" id="password" v-model="form.password" placeholder="Mínimo 6 caracteres" :class="{ 'input-error': errores.password }">
         <small v-if="errores.password" class="error">{{ errores.password }}</small>
   

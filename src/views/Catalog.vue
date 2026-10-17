@@ -3,7 +3,7 @@
     <!-- Encabezado del Catálogo -->
     <header class="catalog-header">
       <span class="section-tag">Explora la comunidad</span>
-      <h1>Catálogo de Emprendimientos</h1>
+      <h1>Catálogo de emprendimientos</h1>
       <p>
         Descubre los negocios locales de Puerto Morelos, filtra por categoría o
         busca por nombre para conocer su oferta.
@@ -353,6 +353,7 @@ onMounted(() => {
   font-weight: 600;
   letter-spacing: -0.035em;
   color: var(--text-dark);
+  font-family: 'Poppins', sans-serif;
 }
 
 .catalog-header p {
@@ -623,6 +624,7 @@ onMounted(() => {
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.2s ease;
+  font-family: 'Poppins', sans-serif;
 }
 
 .view-profile-button:hover {
@@ -640,6 +642,7 @@ onMounted(() => {
   background-color: var(--white);
   border: 1px dashed var(--border);
   border-radius: 1rem;
+  font-family: 'Poppins', sans-serif;
 }
 
 .empty-icon {
@@ -660,6 +663,7 @@ onMounted(() => {
   font-size: 1.1rem;
   font-weight: 600;
   color: var(--text-dark);
+  font-family: 'Poppins', sans-serif;
 }
 
 .empty-results p {
@@ -681,6 +685,18 @@ onMounted(() => {
 
 .button-secondary:hover {
   background-color: var(--border);
+}
+
+/* Fuente para los campos de búsqueda y filtros */
+.search-bar input,
+.filter-group select {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+}
+
+/* Fuente para las opciones del select */
+.filter-group select option {
+  font-family: 'Poppins', sans-serif;
 }
 
 /* Adaptabilidad para móviles */

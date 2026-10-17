@@ -1,29 +1,125 @@
+
 <template>
   <header
     class="navbar"
     :class="{ 'navbar-profile': route.path === '/profile' }"
   >
-    <div class="logo">
+    <div class="logo" @click="irAInicio">
       <span>Hecho en</span>
       <strong>Puerto Morelos</strong>
     </div>
 
     <nav class="nav-links">
-      <a href="#inicio">Inicio</a>
-      <a href="#directorio">Explorar</a>
-      <a href="#categorias">Categorías</a>
+      <router-link to="/" @click="irAInicio">
+        Inicio
+      </router-link>
 
-      <router-link to="/registro" class="btn-emprendedor">
+      <router-link to="/catalog">
+        Catálogo
+      </router-link>
+
+      <router-link to="/#categorias">
+        Categorías
+      </router-link>
+
+      <router-link
+        v-if="!sesionActiva"
+        to="/registro"
+        class="btn-emprendedor"
+      >
         Soy emprendedor
+      </router-link>
+
+      <router-link
+        v-else
+        to="/profile"
+        class="btn-emprendedor"
+      >
+        Mi perfil
       </router-link>
     </nav>
   </header>
 </template>
 
 <script setup>
-import { useRoute } from 'vue-router';
+import {
+  ref,
+  onMounted,
+  onBeforeUnmount,
+  watch
+} from 'vue'
 
-const route = useRoute();
+import { useRoute, useRouter } from 'vue-router'
+
+const route = useRoute()
+const router = useRouter()
+
+const sesionActiva = ref(false)
+
+// Comprueba si existe una sesión iniciada
+function comprobarSesion() {
+  sesionActiva.value = !!localStorage.getItem('usuarioActivo')
+}
+
+// Detecta cambios de sesión en la misma pestaña
+function escucharCambiosSesion() {
+  comprobarSesion()
+}
+
+// Detecta cambios de localStorage desde otras pestañas
+function escucharCambiosAlmacenamiento(event) {
+  if (event.key === 'usuarioActivo') {
+    comprobarSesion()
+  }
+}
+
+// Regresa al inicio y desplaza la página hacia arriba
+function irAInicio() {
+  if (route.path === '/') {
+    document.getElementById('inicio')?.scrollIntoView({
+      behavior: 'smooth'
+    })
+    return
+  }
+
+  router.push('/')
+}
+
+// Comprueba la sesión al cargar el componente
+onMounted(() => {
+  comprobarSesion()
+
+  window.addEventListener(
+    'storage',
+    escucharCambiosAlmacenamiento
+  )
+
+  window.addEventListener(
+    'sesion-actualizada',
+    escucharCambiosSesion
+  )
+})
+
+// Actualiza el botón al cambiar de ruta
+watch(
+  () => route.fullPath,
+  () => {
+    comprobarSesion()
+  }
+)
+
+// Limpia los eventos al desmontar el componente
+onBeforeUnmount(() => {
+  window.removeEventListener(
+    'storage',
+    escucharCambiosAlmacenamiento
+  )
+
+  window.removeEventListener(
+    'sesion-actualizada',
+    escucharCambiosSesion
+  )
+})
 </script>
 
 <style scoped>
@@ -43,6 +139,7 @@ const route = useRoute();
   background-color: var(--white);
   border-bottom: 1px solid var(--border);
   font-family: 'Poppins', 'Google Sans', sans-serif;
+  box-sizing: border-box;
 }
 
 /* Navbar fija solamente en el perfil */
@@ -59,6 +156,7 @@ const route = useRoute();
   display: flex;
   flex-direction: column;
   line-height: 1.1;
+  cursor: pointer;
 }
 
 .logo span {
@@ -91,14 +189,14 @@ const route = useRoute();
   color: var(--primary);
 }
 
-.btn-emprendedor {
+.nav-links .btn-emprendedor {
   margin-left: 0.5rem;
   border-radius: 0.6rem;
   background-color: var(--primary);
   color: var(--white) !important;
 }
 
-.btn-emprendedor:hover {
+.nav-links .btn-emprendedor:hover {
   background-color: var(--primary-dark);
 }
 
@@ -128,7 +226,7 @@ const route = useRoute();
     justify-content: center;
   }
 
-  .btn-emprendedor {
+  .nav-links .btn-emprendedor {
     margin-left: 0;
   }
 }
