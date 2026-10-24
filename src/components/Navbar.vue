@@ -18,8 +18,8 @@
         Catálogo
       </router-link>
 
-      <router-link to="/#categorias">
-        Categorías
+      <router-link to="/contact">
+        Contáctanos
       </router-link>
 
       <router-link

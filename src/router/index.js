@@ -6,7 +6,7 @@ import Profile from '../views/Profile.vue';
 import PublicProfile from "../views/PublicProfile.vue";
 import Catalog from "../views/Catalog.vue";
 import Contact from "../views/Contact.vue";
-
+import ProductDetail from "../views/ProductDetail.vue";
 
 const routes = [
     { path: '/', component: Inicio }, 
@@ -16,6 +16,7 @@ const routes = [
     { path: '/publicProfile', component: PublicProfile },
     { path: '/catalog', component: Catalog },
     { path: '/contact', component: Contact },
+    { path: '/producto/:id', component: ProductDetail },
 ];
 
 const router = createRouter({

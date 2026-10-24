@@ -187,6 +187,11 @@
             v-for="(producto, indice) in productos"
             :key="producto.id ?? `${producto.nombre}-${indice}`"
             class="product-card"
+            role="link"
+            tabindex="0"
+            @click="$router.push(`/producto/${encodeURIComponent(producto.id)}`)"
+            @keydown.enter="$router.push(`/producto/${encodeURIComponent(producto.id)}`)"
+            @keydown.space.prevent="$router.push(`/producto/${encodeURIComponent(producto.id)}`)"
           >
             <div class="product-card-photos">
               <img
@@ -214,7 +219,8 @@
 
                 {{ nombreCategoria(producto.categoria) }}
               </span>
-  
+ 
+              
               <h3>{{ producto.nombre || 'Producto sin nombre' }}</h3>
   
               <p class="public-product-description">
@@ -235,7 +241,8 @@
                   <i class="fa-brands fa-whatsapp"></i>
                   Consultar producto
                 </a>
-  
+
+                
                 <span v-else class="public-no-contact">
                   <i class="fa-solid fa-circle-info"></i>
                   Contacto no disponible
@@ -968,6 +975,15 @@
   color: var(--text-light);
   font-size: 0.8rem;
   line-height: 1.7;
+}
+
+.public-profile .product-card {
+  cursor: pointer;
+}
+
+.public-profile .product-card:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
 }
 
 /* Diseño adaptable */

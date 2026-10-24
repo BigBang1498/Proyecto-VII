@@ -151,13 +151,13 @@ function enviarMensaje() {
 /* Encabezado */
 .contact-header { text-align: center; max-width: 600px; margin: 0 auto 2rem; }
 .section-tag { color: var(--primary-dark); font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; }
-.contact-header h1 { font-size: 2.2rem; color: var(--text-dark); font-weight: 700; margin: 0.3rem 0; }
+.contact-header h1 { font-size: 2.2rem; color: var(--text-dark); font-weight: 600; margin: 0.3rem 0; font-family: 'Poppins', sans-serif; }
 .contact-header p { color: var(--text-body); font-size: 0.9rem; font-weight: 500; }
 
 .contact-container { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 320px 1fr; gap: 1.5rem; }
 .contact-card { background: #fff; border: 1px solid var(--border); border-radius: 1rem; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
-.contact-card h2 { font-size: 1.2rem; color: var(--text-dark); font-weight: 600; margin-top: 0; margin-bottom: 0.5rem; }
-.desc { font-size: 0.85rem; color: var(--text-body); margin-bottom: 1rem; }
+.contact-card h2 { font-size: 1.2rem; color: var(--text-dark); font-weight: 600; margin-top: 0; margin-bottom: 0.5rem; font-family: 'Poppins', sans-serif;}
+.desc { font-size: 0.85rem; color: var(--text-body); margin-bottom: 1rem; font-family: 'Poppins', sans-serif; }
 
 /* Lista de Información de Contacto */
 .info-list { display: flex; flex-direction: column; gap: 0.8rem; margin: 1rem 0; }
@@ -213,7 +213,7 @@ input.error, select.error, textarea.error { border-color: #dc2626; background: #
 .error-text { color: #dc2626; font-size: 0.75rem; font-weight: 500; margin-top: 0.25rem; }
 
 .success-alert { background: #e6f5f3; color: var(--primary-dark); padding: 0.75rem; border-radius: 0.5rem; font-size: 0.85rem; font-weight: 600; }
-.btn-submit { width: 100%; padding: 0.85rem; border: none; border-radius: 0.5rem; background: var(--primary); color: #fff; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+.btn-submit { width: 100%; padding: 0.85rem; border: none; border-radius: 0.5rem; background: var(--primary); color: #fff; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: background 0.2s; font-family: 'Poppins', sans-serif;}
 .btn-submit:hover { background: var(--primary-dark); }
 
 @media (max-width: 768px) {
