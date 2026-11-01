@@ -74,7 +74,11 @@
       <div class="results-info">
         <span>
           Mostrando <strong>{{ emprendedoresFiltrados.length }}</strong>
-          {{ emprendedoresFiltrados.length === 1 ? 'emprendimiento' : 'emprendimientos' }}
+          {{
+            emprendedoresFiltrados.length === 1
+              ? 'emprendimiento'
+              : 'emprendimientos'
+          }}
         </span>
 
         <button
@@ -88,7 +92,10 @@
       </div>
 
       <!-- Cuadrícula de Emprendedores -->
-      <section v-if="emprendedoresFiltrados.length" class="entrepreneurs-grid">
+      <section
+        v-if="emprendedoresFiltrados.length"
+        class="entrepreneurs-grid"
+      >
         <article
           v-for="item in emprendedoresFiltrados"
           :key="item.id || item.correo"
@@ -102,12 +109,19 @@
                 :alt="item.perfil.emprendimiento || item.nombre"
               />
               <div v-else class="card-logo-placeholder">
-                {{ obtenerIniciales(item.perfil?.emprendimiento || item.nombre) }}
+                {{
+                  obtenerIniciales(
+                    item.perfil?.emprendimiento || item.nombre
+                  )
+                }}
               </div>
             </div>
 
             <div class="card-title-area">
-              <h3>{{ item.perfil?.emprendimiento || 'Emprendimiento local' }}</h3>
+              <h3>
+                {{ item.perfil?.emprendimiento || 'Emprendimiento local' }}
+              </h3>
+
               <p v-if="item.perfil?.nombreContacto" class="card-owner">
                 <i class="fa-regular fa-user"></i>
                 {{ item.perfil.nombreContacto }}
@@ -116,15 +130,28 @@
           </div>
 
           <p class="card-description">
-            {{ item.perfil?.descripcion || 'Sin descripción disponible por el momento.' }}
+            {{
+              item.perfil?.descripcion ||
+              'Sin descripción disponible por el momento.'
+            }}
           </p>
 
           <div class="card-tags">
-            <span v-if="item.perfil?.tiendaFisica === 'si'" class="badge badge-store">
-              <i class="fa-solid fa-store"></i> Tienda física
+            <!-- Etiqueta de ubicación  -->
+            <span
+              v-if="
+                item.perfil?.tiendaFisica === true ||
+                item.perfil?.tiendaFisica === 'si'
+              "
+              class="badge badge-store"
+            >
+              <i class="fa-solid fa-store"></i>
+              Tienda física
             </span>
+
             <span v-else class="badge badge-online">
-              <i class="fa-solid fa-globe"></i> En línea
+              <i class="fa-solid fa-globe"></i>
+              En línea
             </span>
 
             <span class="badge badge-products">
@@ -146,15 +173,24 @@
         </article>
       </section>
 
+      <!-- Mensaje cuando no hay resultados -->
       <section v-else class="empty-results">
         <div class="empty-icon">
           <i class="fa-solid fa-magnifying-glass"></i>
         </div>
+
         <h2>No se encontraron emprendimientos</h2>
+
         <p>
-          Intenta ajustando los términos de búsqueda o cambiando los filtros seleccionados.
+          Intenta ajustando los términos de búsqueda o cambiando los filtros
+          seleccionados.
         </p>
-        <button type="button" class="button button-secondary" @click="limpiarFiltros">
+
+        <button
+          type="button"
+          class="button button-secondary"
+          @click="limpiarFiltros"
+        >
           Restablecer filtros
         </button>
       </section>
@@ -163,19 +199,31 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, computed, onMounted, watch } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+import { testEntrepreneurs, testProducts } from '../data/testData'
 
 const router = useRouter()
+const route = useRoute()
 
 const emprendedores = ref([])
 const productos = ref([])
 
-const busqueda = ref('')
+const busqueda = ref(route.query.busqueda || '')
 const categoriaSeleccionada = ref('todas')
 const tiendaFisicaFiltro = ref('todos')
 const ordenamiento = ref('nombre-asc')
 
+// Actualizar la búsqueda 
+watch(
+  () => route.query.busqueda,
+  (nuevaBusqueda) => {
+    busqueda.value = nuevaBusqueda || ''
+  },
+  { immediate: true }
+)
+
+// Leer información del localStorage
 function leerLocalStorage(clave, valorPredeterminado) {
   try {
     const valor = localStorage.getItem(clave)
@@ -192,14 +240,19 @@ function obtenerIdentificador(usuario) {
 
 function contarProductos(usuario) {
   const id = obtenerIdentificador(usuario)
+
   if (id == null) return 0
+
   return productos.value.filter(
-    p => p.usuarioId != null && String(p.usuarioId) === String(id)
+    p =>
+      p.usuarioId != null &&
+      String(p.usuarioId) === String(id)
   ).length
 }
 
 function obtenerIniciales(nombre) {
   if (!nombre) return 'EM'
+
   return nombre
     .split(' ')
     .filter(Boolean)
@@ -217,6 +270,7 @@ const hayFiltrosActivos = computed(() => {
   )
 })
 
+// Limpiar todos los filtros
 function limpiarFiltros() {
   busqueda.value = ''
   categoriaSeleccionada.value = 'todas'
@@ -224,22 +278,36 @@ function limpiarFiltros() {
   ordenamiento.value = 'nombre-asc'
 }
 
+// Filtrar y ordenar emprendedores
 const emprendedoresFiltrados = computed(() => {
   let resultado = [...emprendedores.value]
 
+  // Filtro de búsqueda
   if (busqueda.value) {
     const query = busqueda.value.toLowerCase()
+
     resultado = resultado.filter(emp => {
-      const nombreNegocio = (emp.perfil?.emprendimiento || '').toLowerCase()
-      const contacto = (emp.perfil?.nombreContacto || emp.nombre || '').toLowerCase()
-      const descripcion = (emp.perfil?.descripcion || '').toLowerCase()
+      const nombreNegocio = (
+        emp.perfil?.emprendimiento || ''
+      ).toLowerCase()
+
+      const contacto = (
+        emp.perfil?.nombreContacto || emp.nombre || ''
+      ).toLowerCase()
+
+      const descripcion = (
+        emp.perfil?.descripcion || ''
+      ).toLowerCase()
 
       const idUsuario = obtenerIdentificador(emp)
+
       const tieneProductoCoincidente = productos.value.some(p => {
         return (
           String(p.usuarioId) === String(idUsuario) &&
-          ((p.nombre || '').toLowerCase().includes(query) ||
-           (p.descripcion || '').toLowerCase().includes(query))
+          (
+            (p.nombre || '').toLowerCase().includes(query) ||
+            (p.descripcion || '').toLowerCase().includes(query)
+          )
         )
       })
 
@@ -252,9 +320,11 @@ const emprendedoresFiltrados = computed(() => {
     })
   }
 
+  // Filtro por categoría
   if (categoriaSeleccionada.value !== 'todas') {
     resultado = resultado.filter(emp => {
       const idUsuario = obtenerIdentificador(emp)
+
       return productos.value.some(
         p =>
           String(p.usuarioId) === String(idUsuario) &&
@@ -263,45 +333,85 @@ const emprendedoresFiltrados = computed(() => {
     })
   }
 
+  // Filtro por ubicación
   if (tiendaFisicaFiltro.value !== 'todos') {
     resultado = resultado.filter(emp => {
-      return emp.perfil?.tiendaFisica === tiendaFisicaFiltro.value
+      const tieneTienda =
+        emp.perfil?.tiendaFisica === true ||
+        emp.perfil?.tiendaFisica === 'si'
+
+      return tiendaFisicaFiltro.value === 'si'
+        ? tieneTienda
+        : !tieneTienda
     })
   }
 
+  // Ordenamiento
   resultado.sort((a, b) => {
-    const nombreA = (a.perfil?.emprendimiento || a.nombre || '').toLowerCase()
-    const nombreB = (b.perfil?.emprendimiento || b.nombre || '').toLowerCase()
+    const nombreA = (
+      a.perfil?.emprendimiento || a.nombre || ''
+    ).toLowerCase()
+
+    const nombreB = (
+      b.perfil?.emprendimiento || b.nombre || ''
+    ).toLowerCase()
 
     if (ordenamiento.value === 'nombre-asc') {
       return nombreA.localeCompare(nombreB)
     }
+
     if (ordenamiento.value === 'nombre-desc') {
       return nombreB.localeCompare(nombreA)
     }
+
     if (ordenamiento.value === 'productos-desc') {
       return contarProductos(b) - contarProductos(a)
     }
+
     if (ordenamiento.value === 'recientes') {
       return (b.id || 0) - (a.id || 0)
     }
+
     return 0
   })
 
   return resultado
 })
 
+// Abrir perfil público del emprendedor
 function verPerfilPublico(emprendedor) {
-  localStorage.setItem('usuarioActivo', JSON.stringify(emprendedor))
+  localStorage.setItem(
+    'usuarioActivo',
+    JSON.stringify(emprendedor)
+  )
+
   router.push('/publicProfile')
 }
 
+// Cargar emprendedores y productos
 onMounted(() => {
-  emprendedores.value = leerLocalStorage('emprendedores', [])
-  productos.value = leerLocalStorage('productos', [])
+  const emprendedoresGuardados = leerLocalStorage(
+    'emprendedores',
+    []
+  )
+
+  const productosGuardados = leerLocalStorage(
+    'productos',
+    []
+  )
+
+  // Combinar datos de prueba con los datos registrados
+  emprendedores.value = [
+    ...testEntrepreneurs,
+    ...emprendedoresGuardados
+  ]
+
+  productos.value = [
+    ...testProducts,
+    ...productosGuardados
+  ]
 })
 </script>
-
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 

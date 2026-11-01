@@ -272,6 +272,7 @@
   
   <script setup>
   import { computed, ref, onMounted } from 'vue'
+  import { testProducts } from '../data/testData'
   
   const usuarioActivo = ref({
     nombre: '',
@@ -393,28 +394,40 @@
   }
   
   function fotosValidas(producto) {
-    if (!Array.isArray(producto.fotos)) return []
-  
+  if (Array.isArray(producto.fotos)) {
     return producto.fotos.filter(foto => {
       return foto && typeof foto.url === 'string' && foto.url.trim()
     })
   }
+
+  if (producto.imagen) {
+    return [{ url: producto.imagen }]
+  }
+
+  return []
+}
   
   onMounted(() => {
-    usuarioActivo.value = leerLocalStorage('usuarioActivo', {
-      nombre: '',
-      correo: '',
-      perfil: {}
-    })
-  
-    const productosGuardados = leerLocalStorage('productos', [])
-  
-    todosLosProductos.value = Array.isArray(productosGuardados)
-      ? productosGuardados
-      : []
+  usuarioActivo.value = leerLocalStorage('usuarioActivo', {
+    nombre: '',
+    correo: '',
+    perfil: {}
   })
+
+  const productosGuardados = leerLocalStorage('productos', [])
+
+  const productosLocales = Array.isArray(productosGuardados)
+    ? productosGuardados
+    : []
+
+  todosLosProductos.value = [
+    ...testProducts,
+    ...productosLocales
+  ]
+})
+
   </script>
-```html
+
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 

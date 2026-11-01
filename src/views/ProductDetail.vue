@@ -111,9 +111,11 @@
   </main>
 </template>
 
+
 <script setup>
 import { computed, ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { testProducts, testEntrepreneurs } from '../data/testData'
 
 const route = useRoute()
 const router = useRouter()
@@ -133,12 +135,32 @@ const categorias = {
   fitness: 'Fitness'
 }
 
+// Obtener las fotografías del producto.
+// También admite la propiedad "imagen" de los productos de prueba.
 const fotosValidas = computed(() => {
-  if (!Array.isArray(producto.value?.fotos)) return []
+  const item = producto.value
 
-  return producto.value.fotos.filter(
-    foto => foto && typeof foto.url === 'string' && foto.url.trim()
-  )
+  if (!item) return []
+
+  if (Array.isArray(item.fotos)) {
+    const fotos = item.fotos
+      .map(foto => {
+        if (typeof foto === 'string') {
+          return { url: foto }
+        }
+
+        return foto?.url ? foto : null
+      })
+      .filter(foto => foto && foto.url.trim())
+
+    if (fotos.length) return fotos
+  }
+
+  if (typeof item.imagen === 'string' && item.imagen.trim()) {
+    return [{ url: item.imagen }]
+  }
+
+  return []
 })
 
 const fotoPrincipal = computed(() => {
@@ -183,6 +205,10 @@ function nombreCategoria(categoria) {
   return categorias[categoria] || categoria || 'Sin categoría'
 }
 
+function obtenerIdentificadorUsuario(usuario) {
+  return usuario?.id ?? usuario?.correo ?? usuario?.nombre
+}
+
 function volver() {
   if (window.history.state?.back) {
     router.back()
@@ -201,27 +227,42 @@ onMounted(() => {
       localStorage.getItem('emprendedores') || '[]'
     )
 
-    const productos = Array.isArray(productosGuardados)
+    const productosLocales = Array.isArray(productosGuardados)
       ? productosGuardados
       : []
 
-    const emprendedores = Array.isArray(emprendedoresGuardados)
+    const emprendedoresLocales = Array.isArray(emprendedoresGuardados)
       ? emprendedoresGuardados
       : []
 
-    const encontrado = productos.find(
-      item => String(item.id) === String(route.params.id)
-    )
+    // Unir productos de prueba y productos guardados
+    const todosLosProductos = [
+      ...testProducts,
+      ...productosLocales
+    ]
 
-    if (!encontrado) return
+    // Unir emprendedores de prueba y emprendedores guardados
+    const todosLosEmprendedores = [
+      ...testEntrepreneurs,
+      ...emprendedoresLocales
+    ]
+
+    // Buscar el producto por su id
+    const encontrado = todosLosProductos.find(item => {
+      return String(item.id) === String(route.params.id)
+    })
+
+    if (!encontrado) {
+      producto.value = null
+      return
+    }
 
     producto.value = encontrado
     indiceFotoSeleccionada.value = 0
 
     emprendedor.value =
-      emprendedores.find(usuario => {
-        const identificador =
-          usuario?.id ?? usuario?.correo ?? usuario?.nombre
+      todosLosEmprendedores.find(usuario => {
+        const identificador = obtenerIdentificadorUsuario(usuario)
 
         return (
           identificador != null &&
@@ -230,16 +271,13 @@ onMounted(() => {
         )
       }) || null
 
-    // Respaldo para el perfil de la sesión actual.
+    
     if (!emprendedor.value) {
       const usuarioActivo = JSON.parse(
         localStorage.getItem('usuarioActivo') || 'null'
       )
 
-      const identificador =
-        usuarioActivo?.id ??
-        usuarioActivo?.correo ??
-        usuarioActivo?.nombre
+      const identificador = obtenerIdentificadorUsuario(usuarioActivo)
 
       if (
         identificador != null &&

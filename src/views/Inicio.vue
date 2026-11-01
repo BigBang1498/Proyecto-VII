@@ -16,8 +16,13 @@
         </p>
 
         <div class="search-box">
-          <input type="text" placeholder="Busca productos, servicios o emprendedores..." />
-          <button>Buscar</button>
+          <input
+            v-model="busqueda"
+            type="text"
+            placeholder="Busca productos, servicios o emprendedores..."
+            @keyup.enter="buscar"
+          />
+          <button @click="buscar">Buscar</button>
         </div>
       </div>
     </section>
@@ -162,9 +167,23 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
+
+// Guarda el texto que se escribe en el buscador
+const busqueda = ref('')
+
+// Envía la búsqueda al catálogo
+const buscar = () => {
+  router.push({
+    path: '/catalog',
+    query: busqueda.value.trim()
+      ? { busqueda: busqueda.value.trim() }
+      : {}
+  })
+}
 
 const irA = (seccion) => {
   if (seccion === 'registro') {
