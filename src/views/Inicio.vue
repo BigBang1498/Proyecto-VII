@@ -110,7 +110,7 @@
 
       <div class="brands-grid">
         <div class="brand-card" @click="irA('emprendimiento-1')">
-          <img src="../assets/img-brand1.png" alt="Emprendimiento 1" />
+          <img src="../assets/img-brand1.jpg" alt="Emprendimiento 1" />
         </div>
 
         <div class="brand-card" @click="irA('emprendimiento-2')">
