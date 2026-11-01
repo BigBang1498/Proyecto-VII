@@ -110,19 +110,19 @@
 
       <div class="brands-grid">
         <div class="brand-card" @click="irA('emprendimiento-1')">
-          <img src="../assets/img-marca1.png" alt="Emprendimiento 1" />
+          <img src="../assets/img-brand1.png" alt="Emprendimiento 1" />
         </div>
 
         <div class="brand-card" @click="irA('emprendimiento-2')">
-          <img src="../assets/img-marca2.png" alt="Emprendimiento 2" />
+          <img src="../assets/img-brand2.png" alt="Emprendimiento 2" />
         </div>
 
         <div class="brand-card" @click="irA('emprendimiento-3')">
-          <img src="../assets/img-marca3.png" alt="Emprendimiento 3" />
+          <img src="../assets/img-brand3.png" alt="Emprendimiento 3" />
         </div>
 
         <div class="brand-card" @click="irA('emprendimiento-4')">
-          <img src="../assets/img-marca4.png" alt="Emprendimiento 4" />
+          <img src="../assets/img-brand4.png" alt="Emprendimiento 4" />
         </div>
       </div>
     </section>

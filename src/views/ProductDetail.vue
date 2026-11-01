@@ -135,8 +135,7 @@ const categorias = {
   fitness: 'Fitness'
 }
 
-// Obtener las fotografías del producto.
-// También admite la propiedad "imagen" de los productos de prueba.
+// Obtener las fotografías del producto
 const fotosValidas = computed(() => {
   const item = producto.value
 
