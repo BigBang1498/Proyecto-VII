@@ -7,7 +7,7 @@
       <p>Gestiona los usuarios, emprendimientos y productos registrados en la plataforma.</p>
     </header>
 
-    <!-- Tarjetas de Estadísticas / Métricas -->
+    <!-- Tarjetas de Estadísticas -->
     <section class="stats-grid">
       <div class="stat-card">
         <div class="stat-icon"><i class="fa-solid fa-store"></i></div>

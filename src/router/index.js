@@ -7,12 +7,9 @@ import PublicProfile from "../views/PublicProfile.vue";
 import Catalog from "../views/Catalog.vue";
 import Contact from "../views/Contact.vue";
 import ProductDetail from "../views/ProductDetail.vue";
-<<<<<<< HEAD
 import Dashboard from "../views/Dashboard.vue";
-=======
 import eventos from "../views/eventos.vue";
 import EventDetail from "../views/EventDetail.vue";
->>>>>>> 5fc9e5b829ab3a7c186cf1225311618964ba0c84
 
 const routes = [
     { path: '/', component: Inicio }, 
@@ -23,13 +20,10 @@ const routes = [
     { path: '/catalog', component: Catalog },
     { path: '/contact', component: Contact },
     { path: '/producto/:id', component: ProductDetail },
-<<<<<<< HEAD
     { path: '/dashboard', component: Dashboard },
-=======
     {path: '/eventos', component: eventos},
     { path: '/eventos/:id', name: 'EventDetail', component: EventDetail, props: true}
 
->>>>>>> 5fc9e5b829ab3a7c186cf1225311618964ba0c84
 ];
 
 const router = createRouter({
