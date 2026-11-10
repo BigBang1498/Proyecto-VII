@@ -7,6 +7,8 @@ import PublicProfile from "../views/PublicProfile.vue";
 import Catalog from "../views/Catalog.vue";
 import Contact from "../views/Contact.vue";
 import ProductDetail from "../views/ProductDetail.vue";
+import eventos from "../views/eventos.vue";
+import EventDetail from "../views/EventDetail.vue";
 
 const routes = [
     { path: '/', component: Inicio }, 
@@ -17,6 +19,9 @@ const routes = [
     { path: '/catalog', component: Catalog },
     { path: '/contact', component: Contact },
     { path: '/producto/:id', component: ProductDetail },
+    {path: '/eventos', component: eventos},
+    { path: '/eventos/:id', name: 'EventDetail', component: EventDetail, props: true}
+
 ];
 
 const router = createRouter({

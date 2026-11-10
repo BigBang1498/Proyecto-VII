@@ -18,6 +18,10 @@
         Catálogo
       </router-link>
 
+      <router-link to="/eventos">
+        Bazares y Eventos
+      </router-link>
+
       <router-link to="/contact">
         Contáctanos
       </router-link>
